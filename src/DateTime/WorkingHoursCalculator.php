@@ -26,10 +26,7 @@ class WorkingHoursCalculator
         if ($from > $to) {
             throw new \InvalidArgumentException('Cannot calculate a negative interval, first argument should be <= second');
         }
-        // work day seconds
-        $workday_start_hour = 9;
-        $workday_end_hour = 17;
-        $workday_seconds = ($workday_end_hour - $workday_start_hour) * 3600;
+        $workday_seconds = ($this->getWorkDayEndHour() - $this->getWorkDayBeginHour()) * 3600;
 
         // work days beetwen dates, minus 1 day
         $from_date = date('Y-m-d', $from);
@@ -44,7 +41,7 @@ class WorkingHoursCalculator
         // final calculations
         $working_hours = ($workdays_number * $workday_seconds + $end_time_in_seconds - $start_time_in_seconds) / 86400 * 24;
 
-        return $working_hours;
+        return $working_hours < 0 ? 0 : $working_hours;
     }
 
     function getWorkdays($from, $to)
