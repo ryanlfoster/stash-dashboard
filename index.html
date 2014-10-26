@@ -82,7 +82,25 @@
                         cols: [], rows: ["firstToReactName"],
                         rendererName: "Bar Chart"
                     });
+
+                    var average = $.pivotUtilities.aggregatorTemplates.average;
+                    var averageTimeToReact = function() { return average()(["Time to react - hours"]); }
                     $("#output5").pivotUI(data.firstToReact, {
+                        renderers: $.extend(
+                                $.pivotUtilities.renderers,
+                                $.pivotUtilities.gchart_renderers,
+                                $.pivotUtilities.d3_renderers
+                        ),
+                        derivedAttributes: {
+                            "Time to react - hours": function(mp) {
+                                return mp["firstToReactInterval"] / 3600
+                            }
+                        },
+                        cols: ['week'], rows: [],
+                        rendererName: "Line Chart",
+                        aggregators: { "Average time to react": averageTimeToReact }
+                    });
+                    $("#output6").pivotUI(data.firstToReact, {
                         renderers: $.extend(
                                 $.pivotUtilities.renderers,
                                 $.pivotUtilities.gchart_renderers,
