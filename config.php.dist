@@ -2,3 +2,5 @@
 define('STASH_API_URL', 'http://base.url/stash/rest/api/1.0/');
 define('STASH_API_PASSWORD', '');
 define('STASH_API_USERNAME', '');
+define('STASH_API_PROJECT', ''); // project key
+$repositoryNames = array(); // enter repository names, if you want to visualize only some repositories

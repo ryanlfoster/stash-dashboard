@@ -9,20 +9,21 @@ header('Content-type: application/json');
 $client = new StashRestApiClient(STASH_API_URL, STASH_API_USERNAME, STASH_API_PASSWORD);
 
 $project = new StashProject($client);
-$project = $project->getByKey('THEQAR');
+$project = $project->getByKey(STASH_API_PROJECT);
 
 $repositories = $project->getRepositories();
 
-$repositories = array_filter(
-    $repositories,
-    function(StashRepo $value) {
-        return in_array(
-            $value->getSlug(),
-            array('theqar_messaging_service', 'theqar_posts_service', 'theqar_library_service', 'theqar_vagrant')
-        );
-    }
-);
-
+if (defined($repositoryNames) && !empty($repositoryNames)) {
+    $repositories = array_filter(
+        $repositories,
+        function(StashRepo $value) {
+            return in_array(
+                $value->getSlug(),
+                $repositoryNames
+            );
+        }
+    );
+}
 $output = array(
     'requests' => array(),
     'firstToReact' => array(),
