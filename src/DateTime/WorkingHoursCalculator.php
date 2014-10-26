@@ -23,6 +23,9 @@ class WorkingHoursCalculator
      */
     function getWorkingHours($from, $to)
     {
+        if ($from > $to) {
+            throw new \InvalidArgumentException('Cannot calculate a negative interval, first argument should be <= second');
+        }
         // work day seconds
         $workday_start_hour = 9;
         $workday_end_hour = 17;
