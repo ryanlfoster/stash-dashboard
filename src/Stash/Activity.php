@@ -18,6 +18,7 @@ class Activity
 
     private $commentAction;
 
+    /** @var Comment */
     private $comment;
 
     public function __construct(RestApiClient $client)
@@ -34,7 +35,9 @@ class Activity
             $this->setCommentAction($data->commentAction);
         }
         if (isset($data->comment)) {
-
+            $comment = new Comment($this->getClient());
+            $comment->setData($data->comment);
+            $this->setComment($comment);
         }
         $user = new User($this->getClient());
         $user->setData($data->user);
@@ -135,5 +138,21 @@ class Activity
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return Comment
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param Comment $comment
+     */
+    public function setComment(Comment $comment)
+    {
+        $this->comment = $comment;
     }
 }

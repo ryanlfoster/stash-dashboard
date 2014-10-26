@@ -110,6 +110,40 @@
                         cols: ["week"], rows: ["firstToReactName"],
                         rendererName: "Bar Chart"
                     });
+                    var countComments = $.pivotUtilities.aggregatorTemplates.count;
+                    var commentCount = function() { return countComments()(["commentLength"]); }
+                    $("#output8").pivotUI(data.comments, {
+                        renderers: $.extend(
+                                $.pivotUtilities.renderers,
+                                $.pivotUtilities.gchart_renderers,
+                                $.pivotUtilities.d3_renderers
+                        ),
+                        cols: ['week'], rows: [],
+                        rendererName: "Area Chart",
+                        aggregators: { "Number of comments": commentCount }
+                    });
+                    $("#output9").pivotUI(data.comments, {
+                        renderers: $.extend(
+                                $.pivotUtilities.renderers,
+                                $.pivotUtilities.gchart_renderers,
+                                $.pivotUtilities.d3_renderers
+                        ),
+                        cols: [], rows: ["commentName"],
+                        rendererName: "Bar Chart",
+                        aggregators: { "Number of comments": commentCount }
+                    });
+                    var sum = $.pivotUtilities.aggregatorTemplates.sum;
+                    var commentTotalLength = function() { return sum()(["commentLength"]); }
+                        $("#output10").pivotUI(data.comments, {
+                        renderers: $.extend(
+                                $.pivotUtilities.renderers,
+                                $.pivotUtilities.gchart_renderers,
+                                $.pivotUtilities.d3_renderers
+                        ),
+                        cols: [], rows: ["commentName"],
+                        rendererName: "Bar Chart",
+                        aggregators: { "Total comment size": commentTotalLength }
+                    });
                 });
              });
         </script>
@@ -123,6 +157,7 @@
         <div id="output7" style="margin: 30px;"></div>
         <div id="output8" style="margin: 30px;"></div>
         <div id="output9" style="margin: 30px;"></div>
+        <div id="output10" style="margin: 30px;"></div>
 
 
     

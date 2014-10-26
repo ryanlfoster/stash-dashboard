@@ -71,11 +71,12 @@ foreach($repositories as $repository) {
             }
         }
         if ($firstToReact) {
-            $firtToReactRow = clone $row;
-            $firtToReactRow->firstToReactName = $firstToReact->getUser()->getName();
-            $firtToReactRow->firstToReactDisplayName = $firstToReact->getUser()->getDisplayName();
-            $firtToReactRow->firstToReactInterval = $minInterval;
-            $output['firstToReact'][] = clone $firtToReactRow;
+            $firstToReactRow = clone $row;
+            $firstToReactRow->firstToReactName = $firstToReact->getUser()->getName();
+            $firstToReactRow->firstToReactDisplayName = $firstToReact->getUser()->getDisplayName();
+            // TODO: calculate working hours to react?
+            $firstToReactRow->firstToReactInterval = $minInterval;
+            $output['firstToReact'][] = clone $firstToReactRow;
         }
 
 
@@ -88,6 +89,7 @@ foreach($repositories as $repository) {
                 $commentRow->commentName = $activity->getUser()->getName();
                 $commentRow->commentDisplayName = $activity->getUser()->getDisplayName();
                 $commentRow->commentTimeToReact = $activity->getCreatedDate() - $request->getCreatedDate();
+                $commentRow->commentLength = strlen($activity->getComment()->getText());
                 $output['comments'][] = clone $commentRow;
             }
         }
