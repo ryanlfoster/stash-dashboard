@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0065)http://nicolas.kruchten.com/pivottable/examples/fully_loaded.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pivot Demo</title>
         <link rel="stylesheet" type="text/css" href="./pivot_files/pivot.css">
@@ -28,25 +27,7 @@
             google.load("visualization", "1", {packages:["corechart", "charteditor"]});
             $(function(){
                 var derivers = $.pivotUtilities.derivers;
-                /*
-                $.getJSON("mps.json", function(mps) {
-                    $("#output").pivotUI(mps, {
-                        renderers: $.extend(
-                            $.pivotUtilities.renderers, 
-                            $.pivotUtilities.gchart_renderers, 
-                            $.pivotUtilities.d3_renderers
-                            ),
-                        derivedAttributes: {
-                            "Age Bin": derivers.bin("Age", 10),
-                            "Gender Imbalance": function(mp) {
-                                return mp["Gender"] == "Male" ? 1 : -1;
-                            }
-                        },
-                        cols: ["Age Bin"], rows: ["Gender"],
-                        rendererName: "Area Chart"
-                    });
-                });
-                */
+
                 $.getJSON("activity.php", function(data) {
                     $("#output").pivotUI(data.requests, {
                         renderers: $.extend(
@@ -54,7 +35,7 @@
                                 $.pivotUtilities.gchart_renderers,
                                 $.pivotUtilities.d3_renderers
                         ),
-                        /*
+                        /* derived attributes example
                          derivedAttributes: {
                          "Age Bin": derivers.bin("Age", 10),
                          "Gender Imbalance": function(mp) {
@@ -88,14 +69,6 @@
                                 $.pivotUtilities.gchart_renderers,
                                 $.pivotUtilities.d3_renderers
                         ),
-                        /*
-                         derivedAttributes: {
-                         "Age Bin": derivers.bin("Age", 10),
-                         "Gender Imbalance": function(mp) {
-                         return mp["Gender"] == "Male" ? 1 : -1;
-                         }
-                         },
-                         */
                         cols: [], rows: ["authorName"],
                         rendererName: "Bar Chart"
                     });
@@ -106,14 +79,6 @@
                                 $.pivotUtilities.gchart_renderers,
                                 $.pivotUtilities.d3_renderers
                         ),
-                        /*
-                         derivedAttributes: {
-                         "Age Bin": derivers.bin("Age", 10),
-                         "Gender Imbalance": function(mp) {
-                         return mp["Gender"] == "Male" ? 1 : -1;
-                         }
-                         },
-                         */
                         cols: [], rows: ["firstToReactName"],
                         rendererName: "Bar Chart"
                     });
@@ -123,14 +88,6 @@
                                 $.pivotUtilities.gchart_renderers,
                                 $.pivotUtilities.d3_renderers
                         ),
-                        /*
-                         derivedAttributes: {
-                         "Age Bin": derivers.bin("Age", 10),
-                         "Gender Imbalance": function(mp) {
-                         return mp["Gender"] == "Male" ? 1 : -1;
-                         }
-                         },
-                         */
                         cols: ["week"], rows: ["firstToReactName"],
                         rendererName: "Bar Chart"
                     });
