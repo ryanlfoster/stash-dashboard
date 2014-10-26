@@ -13,10 +13,10 @@ $project = $project->getByKey(STASH_API_PROJECT);
 
 $repositories = $project->getRepositories();
 
-if (defined($repositoryNames) && !empty($repositoryNames)) {
+if (isset($repositoryNames) && !empty($repositoryNames)) {
     $repositories = array_filter(
         $repositories,
-        function(StashRepo $value) {
+        function(\Stash\Repo $value) use ($repositoryNames) {
             return in_array(
                 $value->getSlug(),
                 $repositoryNames
@@ -37,6 +37,9 @@ function dolog($msg, $level = 1)
 {
     fwrite(STDERR, str_repeat(' ', $level) . $msg . PHP_EOL);
 }
+
+$calculator = new \DateTime\WorkingHoursCalculator(WORKDAY_BEGIN_HOUR, WORKDAY_END_HOUR, $holidays);
+
 foreach($repositories as $repository) {
     $row = new \StdClass();
 
@@ -76,6 +79,7 @@ foreach($repositories as $repository) {
             $firstToReactRow->firstToReactDisplayName = $firstToReact->getUser()->getDisplayName();
             // TODO: calculate working hours to react?
             $firstToReactRow->firstToReactInterval = $minInterval;
+            $firstToReactRow->firstToReactIntervalWorkingHrs = $calculator->getWorkingHours($request->getCreatedDate(), $request->getCreatedDate() + $minInterval);
             $output['firstToReact'][] = clone $firstToReactRow;
         }
 
@@ -103,6 +107,7 @@ foreach($repositories as $repository) {
                 $approvedRow->approveName = $activity->getUser()->getName();
                 $approvedRow->approveDisplayName = $activity->getUser()->getDisplayName();
                 $approvedRow->approveTimeToReact = $activity->getCreatedDate() - $request->getCreatedDate();
+                $approvedRow->approveTimeToReactWorkingHrs = $calculator->getWorkingHours($request->getCreatedDate(), $activity->getCreatedDate());
                 $output['approves'][] = clone $approvedRow;
             }
         }

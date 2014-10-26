@@ -4,3 +4,7 @@ define('STASH_API_PASSWORD', '');
 define('STASH_API_USERNAME', '');
 define('STASH_API_PROJECT', ''); // project key
 $repositoryNames = array(); // enter repository names, if you want to visualize only some repositories
+
+define('WORKDAY_BEGIN_HOUR', 9);
+define('WORKDAY_END_HOUR', 17);
+$holidays = array(); // Days in Y-m-d format
