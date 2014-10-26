@@ -46,7 +46,7 @@ foreach($repositories as $repository) {
     /** @var Stash\PullRequest $request */
     foreach($requests as $request) {
         $row->repo = $repository->getSlug();
-        $row->week = (int) date('W', $request->getCreatedDate());
+        $row->week = date('Y', $request->getCreatedDate()) . 'w' . str_pad(date('W', $request->getCreatedDate()), 2, '0', STR_PAD_LEFT);
         $row->day = date('Y-m-d', $request->getCreatedDate());
         $row->createdDate = $request->getCreatedDate();
         $row->id = $request->getId();
