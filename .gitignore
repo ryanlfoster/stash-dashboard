@@ -1,4 +1,7 @@
 data/*
+!data/.gitkeep
+!data/.htaccess
 .idea/*
 config.php
 vendor/*
+!vendor/.gitkeep
