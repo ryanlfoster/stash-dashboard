@@ -1,0 +1,4 @@
+<?php
+define('STASH_API_URL', 'http://base.url/stash/rest/api/1.0/');
+define('STASH_API_PASSWORD', '');
+define('STASH_API_USERNAME', '');

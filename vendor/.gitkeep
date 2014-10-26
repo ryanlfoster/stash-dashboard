@@ -1,0 +1,4 @@
+stash-dashboard
+===============
+
+A web dashboard using Atlassian Stash REST API to visualize collaboration patterns.

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)http://nicolas.kruchten.com/pivottable/examples/fully_loaded.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Pivot Demo</title>
+        <link rel="stylesheet" type="text/css" href="./pivot_files/pivot.css">
+        <script type="text/javascript" src="./pivot_files/d3.v3.min.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="./pivot_files/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="./pivot_files/jquery-ui-1.9.2.custom.min.js"></script>
+        <script type="text/javascript" src="./pivot_files/pivot.js"></script>
+        <script type="text/javascript" src="./pivot_files/gchart_renderers.js"></script>
+        <script type="text/javascript" src="./pivot_files/d3_renderers.js"></script>
+        <script type="text/javascript" src="./pivot_files/jquery.ui.touch-punch.min.js"></script>
+    <style>
+        * {font-family: Verdana;}
+        .node {
+          border: solid 1px white;
+          font: 10px sans-serif;
+          line-height: 12px;
+          overflow: hidden;
+          position: absolute;
+          text-indent: 2px;
+        }
+    </style><link href="./pivot_files/orgchart.css" rel="stylesheet" type="text/css"><link href="./pivot_files/annotatedtimeline.css" rel="stylesheet" type="text/css"><link href="./pivot_files/imagesparkline.css" rel="stylesheet" type="text/css"><link href="./pivot_files/tooltip.css" rel="stylesheet" type="text/css"></head>
+    
+    <body>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart", "charteditor"]});
+            $(function(){
+                var derivers = $.pivotUtilities.derivers;
+                /*
+                $.getJSON("mps.json", function(mps) {
+                    $("#output").pivotUI(mps, {
+                        renderers: $.extend(
+                            $.pivotUtilities.renderers, 
+                            $.pivotUtilities.gchart_renderers, 
+                            $.pivotUtilities.d3_renderers
+                            ),
+                        derivedAttributes: {
+                            "Age Bin": derivers.bin("Age", 10),
+                            "Gender Imbalance": function(mp) {
+                                return mp["Gender"] == "Male" ? 1 : -1;
+                            }
+                        },
+                        cols: ["Age Bin"], rows: ["Gender"],
+                        rendererName: "Area Chart"
+                    });
+                });
+                */
+                $.getJSON("activity.php", function(data) {
+                    $("#output").pivotUI(data.requests, {
+                        renderers: $.extend(
+                                $.pivotUtilities.renderers,
+                                $.pivotUtilities.gchart_renderers,
+                                $.pivotUtilities.d3_renderers
+                        ),
+                        /*
+                         derivedAttributes: {
+                         "Age Bin": derivers.bin("Age", 10),
+                         "Gender Imbalance": function(mp) {
+                         return mp["Gender"] == "Male" ? 1 : -1;
+                         }
+                         },
+                         */
+                        cols: [], rows: ["authorName"],
+                        rendererName: "Bar Chart"
+                    });
+                    $("#output2").pivotUI(data.approves, {
+                        renderers: $.extend(
+                                $.pivotUtilities.renderers,
+                                $.pivotUtilities.gchart_renderers,
+                                $.pivotUtilities.d3_renderers
+                        ),
+                        /*
+                        derivedAttributes: {
+                            "Age Bin": derivers.bin("Age", 10),
+                            "Gender Imbalance": function(mp) {
+                                return mp["Gender"] == "Male" ? 1 : -1;
+                            }
+                        },
+                        */
+                        cols: ["week"], rows: ["approveName"],
+                        rendererName: "Bar Chart"
+                    });
+                    $("#output3").pivotUI(data.approves, {
+                        renderers: $.extend(
+                                $.pivotUtilities.renderers,
+                                $.pivotUtilities.gchart_renderers,
+                                $.pivotUtilities.d3_renderers
+                        ),
+                        /*
+                         derivedAttributes: {
+                         "Age Bin": derivers.bin("Age", 10),
+                         "Gender Imbalance": function(mp) {
+                         return mp["Gender"] == "Male" ? 1 : -1;
+                         }
+                         },
+                         */
+                        cols: [], rows: ["authorName"],
+                        rendererName: "Bar Chart"
+                    });
+
+                    $("#output4").pivotUI(data.firstToReact, {
+                        renderers: $.extend(
+                                $.pivotUtilities.renderers,
+                                $.pivotUtilities.gchart_renderers,
+                                $.pivotUtilities.d3_renderers
+                        ),
+                        /*
+                         derivedAttributes: {
+                         "Age Bin": derivers.bin("Age", 10),
+                         "Gender Imbalance": function(mp) {
+                         return mp["Gender"] == "Male" ? 1 : -1;
+                         }
+                         },
+                         */
+                        cols: [], rows: ["firstToReactName"],
+                        rendererName: "Bar Chart"
+                    });
+                    $("#output5").pivotUI(data.firstToReact, {
+                        renderers: $.extend(
+                                $.pivotUtilities.renderers,
+                                $.pivotUtilities.gchart_renderers,
+                                $.pivotUtilities.d3_renderers
+                        ),
+                        /*
+                         derivedAttributes: {
+                         "Age Bin": derivers.bin("Age", 10),
+                         "Gender Imbalance": function(mp) {
+                         return mp["Gender"] == "Male" ? 1 : -1;
+                         }
+                         },
+                         */
+                        cols: ["week"], rows: ["firstToReactName"],
+                        rendererName: "Bar Chart"
+                    });
+                });
+             });
+        </script>
+
+        <div id="output" style="margin: 30px;"></div>
+        <div id="output2" style="margin: 30px;"></div>
+        <div id="output3" style="margin: 30px;"></div>
+        <div id="output4" style="margin: 30px;"></div>
+        <div id="output5" style="margin: 30px;"></div>
+        <div id="output6" style="margin: 30px;"></div>
+        <div id="output7" style="margin: 30px;"></div>
+        <div id="output8" style="margin: 30px;"></div>
+        <div id="output9" style="margin: 30px;"></div>
+
+
+    
+
+</body></html>
