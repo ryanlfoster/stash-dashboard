@@ -46,23 +46,24 @@
                         cols: [], rows: ["authorName"],
                         rendererName: "Bar Chart"
                     });
-                    $("#output2").pivotUI(data.approves, {
+                    var average = $.pivotUtilities.aggregatorTemplates.average;
+                    var averageTimeToReact = function() { return average()(["Time to react - hours"]); }
+                    $("#output2").pivotUI(data.firstToReact, {
                         renderers: $.extend(
                                 $.pivotUtilities.renderers,
                                 $.pivotUtilities.gchart_renderers,
                                 $.pivotUtilities.d3_renderers
                         ),
-                        /*
                         derivedAttributes: {
-                            "Age Bin": derivers.bin("Age", 10),
-                            "Gender Imbalance": function(mp) {
-                                return mp["Gender"] == "Male" ? 1 : -1;
+                            "Time to react - hours": function(mp) {
+                                return mp["firstToReactInterval"] / 3600
                             }
                         },
-                        */
-                        cols: ["week"], rows: ["approveName"],
-                        rendererName: "Bar Chart"
+                        cols: ['week'], rows: [],
+                        rendererName: "Line Chart",
+                        aggregators: { "Average time to react": averageTimeToReact }
                     });
+
                     $("#output3").pivotUI(data.approves, {
                         renderers: $.extend(
                                 $.pivotUtilities.renderers,
@@ -83,22 +84,22 @@
                         rendererName: "Bar Chart"
                     });
 
-                    var average = $.pivotUtilities.aggregatorTemplates.average;
-                    var averageTimeToReact = function() { return average()(["Time to react - hours"]); }
-                    $("#output5").pivotUI(data.firstToReact, {
+                    $("#output5").pivotUI(data.approves, {
                         renderers: $.extend(
                                 $.pivotUtilities.renderers,
                                 $.pivotUtilities.gchart_renderers,
                                 $.pivotUtilities.d3_renderers
                         ),
-                        derivedAttributes: {
-                            "Time to react - hours": function(mp) {
-                                return mp["firstToReactInterval"] / 3600
-                            }
-                        },
-                        cols: ['week'], rows: [],
-                        rendererName: "Line Chart",
-                        aggregators: { "Average time to react": averageTimeToReact }
+                        /*
+                         derivedAttributes: {
+                         "Age Bin": derivers.bin("Age", 10),
+                         "Gender Imbalance": function(mp) {
+                         return mp["Gender"] == "Male" ? 1 : -1;
+                         }
+                         },
+                         */
+                        cols: ["week"], rows: ["approveName"],
+                        rendererName: "Bar Chart"
                     });
                     $("#output6").pivotUI(data.firstToReact, {
                         renderers: $.extend(
